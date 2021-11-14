@@ -1,0 +1,423 @@
+html {
+    height: 100%;
+}
+
+header{
+    background-color: rgb(18, 77, 129);
+    z-index: 100;
+}
+
+.text-black{
+    color:black !important;
+}
+
+.border-black{
+    border-color: black !important;
+}
+
+.red-theme-color{
+    background-color: rgb(168, 153, 153) !important;
+}
+
+.light-theme-color{
+    background-color: rgb(202, 200, 200) !important;
+}
+.light-theme-text{
+    color: rgb(102, 102, 102) !important;
+}
+
+body{
+    font-family: "Slabo+27";
+}
+
+.logo-small{
+    font-size: 250%;
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+.mob-search-bar{
+    display: inline !important;
+    width: 88% !important;
+    margin-right: 0 !important;
+}
+.mob-search-btn{
+    display: inline !important;
+    width:10% !important;
+    margin-left: 0 !important;
+}
+.mob-srch-grp-appnd{
+    display: inline !important;
+}
+.mob-srch-grp{
+    width: 100%;
+    display: inline;
+}
+
+.main-nav-link{
+    font-size: 115%;
+    width: 150px;
+}
+
+.main-nav-link:hover{
+   background-color: rgb(202, 200, 200) !important;
+}
+.text-black {
+    color: rgb(53, 23, 9) !important;
+}
+
+.main-logo-link {
+    width: fit-content;
+}
+.dropdown-menu{
+    border-radius: 0;
+    margin-top: 0;
+}
+.dropdown-item{
+    padding-left: 1.2rem !important;
+}
+
+.user-menu{
+    background-color: rgb(202, 200, 200);
+}
+
+.navbar-toggler:hover{
+    background-color: rgb(168, 153, 153) !important;
+} 
+
+.navbar-light .navbar-toggler {
+    border: none;
+}
+
+#sidenav_underlay{
+    height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+    z-index: 1;
+	background: rgba(148, 143, 140, 0.89);
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: rgb(168, 153, 153);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 10px;
+    font-size: 22px;
+}
+
+.sidenav-open{
+    width:220px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media (min-width: 768px){
+    .sidenav-open{
+        width:0;
+        padding-left: 0;
+    }
+    #sidenav_underlay{
+        display:none !important;
+    }
+   
+}
+
+.close-right{
+    text-align: right;
+}
+
+.sidenav .closebtn {
+    margin-right: 15px;
+    font-size: 36px;
+    color:black;
+}
+
+@media (max-width: 500px){
+    .logo-small{
+        font-size: 170%;
+    }
+}
+
+@media (max-width: 350px){
+    .logo-small{
+        font-size: 150%;
+    }
+}
+@media (max-width: 768px){
+    .dropdown-item{
+        font-weight:bold;
+    }
+}
+
+/* Designs page */
+.doors-banner{
+    background: url('/media/wood-bg.png') no-repeat center center fixed;
+	background-size: cover;
+ 
+    z-index: 1;
+}
+
+.banner-words{
+    z-index: 100;
+}
+.card-header{
+    background-color:white;
+}
+
+.details-btn{
+    width:11rem;
+    border-radius: 0;
+  
+}
+
+.details-btn:hover{
+    color:white;
+}
+.example{
+    line-height: normal;
+}
+
+.black-line{
+    border-top: 0.2px solid black !important;
+}
+
+
+@media(max-width:568px){
+    .banner-words{
+        font-size: 110%;
+    }
+}
+@media(max-width:756px){
+    .banner-words{
+        font-size: 150%;
+    }
+}
+.cupboard-cancel-btn{
+    width:4.5rem;
+}
+
+/* Cupboard details page */
+.card{
+    border-radius: 0;
+}
+.dim-input{
+    width:3.5rem;
+    border-radius:0;
+    border:none;
+    padding-left: 5px;
+}
+
+#shelves{
+    height:30px;
+    border-radius:0;
+    width:3rem;
+    border:none;
+}
+
+button{
+    border-radius: 0 !important;
+}
+
+.btn{
+    border-radius: 0 !important;
+}
+button:hover{
+    background-color:white !important;
+    border-color: black !important;
+}
+
+.number-input{
+    height:33px !important;
+    border-radius:0;
+    width:2.5rem;
+    border-width: 0.5px;
+ 
+}
+
+/* Calculated cupboard page */
+.atc_btn{
+    width: 10rem;
+}
+.atc_btn:hover{
+    border-color: black;
+}
+.input-group, .input-group-prepend, .input-group-append{
+    display:block;
+}
+.plus-minus{
+    height:2rem;
+    width: 2rem;
+}
+
+/* Cart page */
+.chkt-btn:hover{
+    background-color:white !important;
+    border-color: black !important;
+}
+
+@media(min-width: 768px){
+    .small-text{
+        font-size: 90%;
+    }
+}
+
+@media(min-width: 992px){
+    .small-text{
+        font-size: 100%;
+    }
+}
+
+.update-cart{
+    background:none !important;
+}
+.update-cart:hover{
+    background:none !important;
+}
+
+form{
+    display:inline;
+}
+
+/* Toasts */
+
+.overlay{
+    height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+    z-index: -1;
+	background: rgba(148, 143, 140, 0.664);
+}
+
+.toast{
+    font-size: 110%;
+    z-index: 3;
+    max-width: 100vw !important;
+}
+/* tiny screens */
+@media(max-width:400px){
+    .toast{
+        width: 280px !important;
+    }
+}
+
+.close:hover{
+    background: none !important;
+}
+
+.toasts-container{
+    z-index: 999999 !important;
+    height: 100%;
+    width: 100%;
+    align-items: center !important;
+}
+
+.back{
+    z-index: 1 !important;
+}
+
+.toast-error{
+    background-color: rgb(231, 193, 193);
+    color:red !important;
+}
+
+.toast-warning{
+    background-color: rgb(231, 224, 193);
+    color:rgb(156, 98, 31) !important;
+}
+.toast-info{
+    background-color: rgb(188, 236, 245);
+    color:rgb(25, 36, 138) !important;
+}
+.toast-success{
+    background-color: rgb(188, 245, 205);
+    color:rgb(27, 92, 43) !important;
+}
+
+/* Allauth formatting */
+
+.hover-white{
+    height:40px;
+    min-width:85px;
+}
+.hover-white:hover{
+    background-color:#FFFFFF !important;
+}
+
+.no-bg{
+    background:none;
+}
+.no-bg:hover{
+    background:none !important;
+}
+
+.allauth-form-inner-content p {
+    margin-top: 1.5rem;
+}
+
+.allauth-form-inner-content input {
+    border-color: #000;
+    border-radius: 0;
+}
+
+.allauth-form-inner-content label:not([for='id_remember']) {
+    display: none;
+}
+
+.allauth-form-inner-content input::placeholder {
+    color: #aab7c4;
+}
+
+/* Product management */
+.cancel-btn{
+    width:7.5rem;
+}
+.cancel-btn:hover{
+    background-color: white !important;
+    border-color: #000;
+}
+
+/* Main image widget */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    color:#007bff;
+    font-size: 115%;
+}
+.btn-file:hover {
+    color:#007bff;
+    font-size: 115%;
+    text-decoration: underline;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0;
+    border-color: #dc3545;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 0;
+}

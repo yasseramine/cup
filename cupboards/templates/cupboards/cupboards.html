@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container-fluid header-container back">
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class="doors-banner ">
+                <div class="col-12 ">
+                    <h3 class="text-center banner-words p-3 p-md-4">CHOOSE FROM ONE OF OUR TOP QUALITY DESIGNS</h3>
+                </div>
+            </div>
+            <h5 class="text-center back m-3">|
+                {% for t in all_types %}
+                <a href="{%url 'cupboards'%}?type={{t.name}}" class="text-black pt-0">{{t.friendly_name}}s</a> |
+                {% endfor %}
+        </div>
+        <div class="col-12 d-none d-md-block">
+            <hr class="mt-0 mx-5">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-1 mb-2">
+        <div class="col-12 col-md-6  order-md-last d-flex justify-content-center justify-content-md-end">
+            <div class="sort-select-wrapper back w-40 mb-2 mr-md-5">
+                <select id="sort-selector"
+                    class="custom-select border-black custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                    <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>
+                        Price (low to high)</option>
+                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high
+                        to low)</option>
+                    <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)
+                    </option>
+                    <option value="material_asc" {% if current_sorting == 'material_asc' %}selected{% endif %}>Material
+                        (A-Z)
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 order-md-first">
+            <p class="text-muted mt-2 mt-md-0 pl-md-4 mb-md-1 mb-3 light-theme-text text-left">
+                <span class=""><a href="{%url 'cupboards'%}" class="light-theme-text">
+                        All Designs</a> | </span>
+
+                {% if type %}
+                {{ type.friendly_name }}s |
+
+
+                {% endif %}
+                {{ cupboards|length }} results {% if search_term %} found for
+                <strong>"{{ search_term }}"</strong>{% endif %}
+            </p>
+        </div>
+    </div>
+    <hr class="mb-1 mb-md-0 mt-0 mx-5 d-none d-md-block">
+
+    <div class="row">
+        {%for cupboard in cupboards%}
+        <div class="col-12 col-md-4 offset-md-1 text-center text-md-left p-0">
+            <div
+                class="image-wrapper back col-8 offset-2 col-sm-6 offset-sm-3 col-md-12 offset-md-0 mt-md-3 mt-lg-1 p-0 p-lg-3 pb-0">
+                {% if cupboard.main_image %}
+                <a href="{% url 'cupboard_details' cupboard.id %}">
+                    <img class="card-img-top img-fluid  w-30 mx-auto" src="{{ cupboard.main_image.url }}"
+                        alt="{{ cupboard.name }}">
+                </a>
+                {% else %}
+                <a href="{% url 'cupboard_details' cupboard.id %}">
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ cupboard.name }}">
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-md-6 px-2 px-md-0 ml-md-4 pl-md-4 text-center text-md-left">
+            <div class="card h-100 border-0 back">
+                <h4 class="card-header border-0">{{cupboard.name}}</h4>
+                <p class="pl-md-3">{{cupboard.description}}</p>
+                <p class="pl-md-3">Material: {{cupboard.material.display_name}}</p>
+                <h6 class="pl-md-3"><strong>Example price*: £{{cupboard.example_price}}</strong></h6>
+                <p class="pl-md-3 mb-1 example small">*Given for cost comparison.  Calculated for a
+                    unit with
+                    dimensions:</p>
+                <p class="pl-md-3 mb-3 small">H: 150cm / W: 100cm / D: 50cm and 4 shelves.</p>
+                
+                
+                <p class="text-center mb-0 mt-2">
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'edit_design' cupboard.id %}"
+                        class="btn light-theme-color rounded-0 cancel-btn my-2 "><strong>Edit</strong></a>
+                    {% endif %}
+                    <a class="btn btn-lg details-btn red-theme-color"
+                        href="{% url 'cupboard_details' cupboard.id %}"><strong>SELECT</strong></a>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'delete_design' cupboard.id %}"
+                        class="btn light-theme-color rounded-0 cancel-btn my-2 "><strong>Delete</strong></a>
+                    {% endif %}
+                </p>
+           
+                <br>
+                <p class="pl-md-3"><strong>Select this {{cupboard.type.friendly_name | lower}} design and enter your required dimensions on the next
+                        page to receive a quote.</strong></p>
+                
+                {% if request.user.is_superuser %}
+                <p class="text-center mx-0 d-block d-md-none">
+                    <a href="{% url 'edit_design' cupboard.id %}"
+                        class="btn light-theme-color rounded-0 cupboard-cancel-btn mt-2 mb-0"><strong>Edit</strong></a>
+                        <a href="{% url 'delete_design' cupboard.id %}"
+                        class="btn light-theme-color rounded-0 cupboard-cancel-btn mt-2 mb-0"><strong>Delete</strong></a> 
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 pb-3">
+            <hr class="black-line">
+        </div>
+        {% endfor %}
+        <div class="col-12 pt-1 pt-md-2 mb-5 text-center">
+            <a href="" class="text-black btt-link">
+                <h5>Back to top</h5>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock%}
+{% block postloadjs %}
+{{ block.super }}
+
+<script type="text/javascript">
+    $('.btt-link').click(function (e) {
+        window.scrollTo(0, 0)
+    })
+</script>
+
+<script type="text/javascript">
+    $('#sort-selector').change(function () {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+
+        var selectedVal = selector.val();
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("_")[0];
+            var direction = selectedVal.split("_")[1];
+
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+
+            window.location.replace(currentUrl);
+        }
+    })
+</script>
+{% endblock %}

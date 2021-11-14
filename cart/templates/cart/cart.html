@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container-fluid header-container">
+</div>
+{% endblock %}
+{% block content %}
+<div class="container-fluid px-md-3 px-lg-5 mb-2">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="logo-font text-center my-2 my-md-4">Cart</h2>
+            <hr class="mt-0">
+        </div>
+    </div>
+    {% if cart_items %}
+    <div class="row d-none d-md-flex text-center">
+        <div class="col-3">
+            <h5 class="pl-2">Image</h5>
+        </div>
+        <div class="col-4">
+            <h5>Details</h5>
+        </div>
+        <div class="col-1 text-center pl-0">
+            <h5>Price</h5>
+        </div>
+        <div class="col-2">
+            <h5 class="text-center">Quantity</h5>
+        </div>
+        <div class="col-2">
+            <h5>Subtotal</h5>
+        </div>
+    </div>
+    <hr class="d-none d-md-block">
+    {% for item in cart_items %}
+    <div class="row">
+
+        <div class="col-4 col-md-3">
+            {% if item.cupboard.main_image %}
+            <img class="img-fluid rounded" src="{{ item.cupboard.main_image.url }}" alt="{{ item.cupboard.name }}">
+            {% else %}
+            <img class="img-fluid rounded" src="../media/noimage.png" alt="{{ item.cupboard.name }}">
+            {% endif %}
+        </div>
+
+        <div class="col-8 px-md-0 pl-lg-2 col-md-4 large-text pt-lg-4">
+            <h5 class="my-0"><strong>{{ item.cupboard.name }}</strong></h5>
+            <p class="my-1">H: {{ item.spec.height}} cm / W: {{ item.spec.width}} cm / D: {{ item.spec.depth}} cm
+            </p>
+            <p class="my-0">Shelves: {{ item.spec.shelves}}</p>
+
+            <h6 class="my-1 d-block d-md-none">Price: £{{ item.price }}</h6>
+
+            <form class="form d-block d-md-none update-form" method="POST"
+                action="{% url 'update_cart' item.item_id %}">
+                {% csrf_token %}
+                <div class="form-group p-0">
+                    <label for="quantity" class=""></label>
+                    <button
+                        class="decrement-qty decrement-qty_{{ item.item_id }} btn plus-minus btn-sm my-auto light-theme-color rounded-0 align-middle"
+                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                        <i class="fas fa-minus fa-sm"></i>
+                    </button>
+                    <input id="quantity"
+                        class="number-input id_qty_{{ item.item_id }} text-center align-middle qty_input" type="number"
+                        name="quantity" value="{{item.quantity}}" minlength="1" maxlength="5" min="1" max="99"
+                        data-item_id="{{ item.item_id }}" id="">
+                    <span> <button
+                            class="increment-qty increment-qty_{{ item.item_id }} btn plus-minus btn-sm light-theme-color rounded-0 align-middle"
+                            data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                            <i class="fas fa-plus fa-sm"></i>
+                        </button></span>
+                    <span class="pl-2 pr-1">
+                        <button type="submit" class="btn-link update-cart text-info d-md-none text-left border-0">
+                            <i class="fas fa-check fa-sm"></i> Update
+                        </button>
+            </form>
+            </span>
+            <form class="d-md-none" method="POST" action="{% url 'remove_item' item.item_id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-link update-cart text-danger update-cart border-0">Remove
+                    <i class="fas fa-times fa-sm"></i>
+                </button>
+                <input type="hidden" name="spec_code" value="{{ item.code }}">
+            </form>
+            <p><span class="my-0 d-block d-md-none pt-1 d-inline">In cart: {{item.quantity}}</span><span class="float-right d-inline">SUBTOTAL: £{{ item.subtotal}}</span></p>
+            <input type="hidden" name="spec_code" value="{{ item.code }}">
+        </div>
+
+    </div>
+
+    <div class="col-0 col-md-1 d-none pl-0 d-md-block text-center pt-1 pt-lg-4">
+        <h5 class="my-0 text-center large-text">£{{ item.price }}</h5>
+    </div>
+    <div class="col-0 col-md-2 px-0 d-none d-md-block text-center large-text small-text pt-lg-4">
+        <form class="form update-form" method="POST" action="{% url 'update_cart' item.item_id %}">
+            {% csrf_token %}
+            <div class="form-group mb-1 p-0">
+                <label for="quantity" class=""></label>
+                <button
+                    class="decrement-qty decrement-qty_{{item.item_id}} btn plus-minus btn-sm light-theme-color rounded-0 align-middle"
+                    data-item_id="{{ item.item_id }}">
+                    <i class="fas fa-minus fa-sm"></i>
+                </button>
+                <input id="quantity" class="number-input id_qty_{{item.item_id}} text-center qty_input align-middle"
+                    type="number" name="quantity" value="{{item.quantity}}" minlength="1" maxlength="5" min="1" max="99"
+                    data-item_id="{{ item.item_id }}">
+                <button
+                    class="increment-qty increment-qty_{{item.item_id}} btn plus-minus btn-sm light-theme-color rounded-0 align-middle"
+                    data-item_id="{{ item.item_id }}">
+                    <i class="fas fa-plus fa-sm"></i>
+                </button>
+                <input type="hidden" name="spec_code" value="{{ item.code }}">
+            </div>
+            <button type="submit" class="btn-link small-text update-cart text-info text-left border-0">
+                <i class="fas fa-check fa-sm"></i> Update
+            </button>
+        </form>
+        <form method="POST" action="{% url 'remove_item' item.item_id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-link small-text update-cart text-danger update-cart border-0">Remove
+                <i class="fas fa-times fa-sm"></i>
+            </button>
+            <input type="hidden" name="spec_code" value="{{ item.code }}">
+        </form>
+        <p class="my-0 d-none d-md-block pt-1">In cart: {{item.quantity}}</p>
+    </div>
+    <div class="col-0 col-md-2 d-none d-md-block pt-lg-4 text-center">
+        <h5 class="my-0 large-text">£ {{item.subtotal}}</h5>
+    </div>
+</div>
+<hr>
+{% endfor %}
+<div class="col-12 px-0 pt-2 pb-0 col-md-7 offset-md-5 col-lg-5 offset-lg-7">
+    <div class="card light-theme-color rounded-0 border-0 text-right py-3 px-5 p-lg-4">
+        <h4 class="pr-lg-5">Cart Total: £{{ total|floatformat:2 }}</h4>
+        <h5 class="pr-lg-5">Delivery: £{{ delivery|floatformat:2 }}</h5>
+        <h3 class="my-2 pr-lg-5"><strong>Total: £{{ grand_total|floatformat:2 }}</strong></h3>
+        <div class="col-12 text-center p-0 pt-2">
+            <a href="{% url 'checkout' %}" class="btn red-theme-color chkt-btn rounded-0 btn-lg">
+                <span class=>Secure Checkout</span>
+                <span class="icon">
+                    <i class="fas fa-lock fa-sm"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col">
+        <p class="lead text-center mt-3 mb-4">Your cart is empty.</p>
+        <hr>
+    </div>
+    {% endif %}
+    <div class="col-12 pt-0 pb-3 text-center">
+        <!-- {% if cart_items %}
+        <a href="" class="text-black mr-3">
+            <h4 class="py-0">Empty cart</h4>
+        </a>
+        {% endif %} -->
+        <a href="{%url 'cupboards'%}?type=cupboard,shelving" class="ml-3 text-black">
+            <h4>Back to designs</h4>
+        </a>
+        </h4>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'cupboards/includes/quantity_input_script.html' %}
+{% endblock %}
